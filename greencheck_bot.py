@@ -1,3 +1,5 @@
+from flask import Flask
+import threading
 import os
 import io
 import numpy as np
@@ -6,7 +8,11 @@ import telebot
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup, KeyboardButton
 from tensorflow.keras.models import load_model
 import datetime
+app = Flask(__name__)
 
+@app.route("/")
+def home():
+    return "GreenCheck Bot is running!"
 # --- Ogohlantirishlarni o‘chirish ---
 os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 
@@ -791,4 +797,11 @@ def handle_photo(message):
 if __name__ == '__main__':
     os.makedirs("uploads", exist_ok=True)
     print("Bot ishga tushdi...")
+    def run_bot():
     bot.infinity_polling()
+
+threading.Thread(target=run_bot, daemon=True).start()
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
