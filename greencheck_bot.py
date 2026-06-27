@@ -794,14 +794,17 @@ def handle_photo(message):
         bot.reply_to(message, get_text(user_id, 'error_occurred', error_message=str(e)), reply_markup=get_main_menu_reply_keyboard(user_id))
 
 # --- Botni ishga tushurish ---
-if __name__ == '__main__':
-    os.makedirs("uploads", exist_ok=True)
-    print("Bot ishga tushdi...")
-    def run_bot():
-    bot.infinity_polling()
+def run_bot():
+    bot.infinity_polling(timeout=60, long_polling_timeout=30)
 
-threading.Thread(target=run_bot, daemon=True).start()
 
 if __name__ == "__main__":
+    os.makedirs("uploads", exist_ok=True)
+    print("Bot ishga tushdi...")
+
+    # Botni alohida thread'da ishga tushiramiz
+    threading.Thread(target=run_bot, daemon=True).start()
+
+    # Flask serverni ishga tushiramiz (Render PORT'ni ushlab turish uchun muhim)
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
