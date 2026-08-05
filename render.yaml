@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: greencheck
+    runtime: python
+    plan: free
+    buildCommand: pip install -r r.txt
+    startCommand: python greencheck_bot.py
