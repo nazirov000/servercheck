@@ -1,0 +1,5 @@
+[build]
+cmd = "pip install -r r.txt"
+
+[start]
+cmd = "python3 greencheck_bot.py"
