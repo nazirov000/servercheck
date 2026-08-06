@@ -1,0 +1,9 @@
+{
+  "build": {
+    "buildCommand": "pip install -r requirements.txt"
+  },
+  "deploy": {
+    "startCommand": "python greencheck_bot.py",
+    "restartPolicyType": "ALWAYS"
+  }
+}
